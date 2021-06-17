@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
 // POST /wiki/
 router.post("/", async (req, res, next) => {
   try {
-    //  title, content, status
+    // title, content, status
     // Model.create combines build & save
     const page = await Page.create(req.body);
     res.redirect(`/wiki/${page.slug}`);
