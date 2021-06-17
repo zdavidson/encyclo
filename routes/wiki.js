@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { addPage } = require("../views");
+const { addPage, main } = require("../views");
 
 // GET /wiki/
 router.get("/", (req, res) => {
-  res.send("main page");
+  res.send(main());
 });
 
 // POST /wiki/
-
 router.post("/", (req, res) => {
-  res.send("main page (post)");
+  res.json(req.body);
 });
 
 // GET /wiki/add

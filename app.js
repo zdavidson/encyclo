@@ -18,7 +18,7 @@ db.authenticate().then(() => console.log("Connected to the database"));
 
 // Main Route
 app.get("/", (req, res) => {
-  res.send(views.main());
+  res.redirect("/wiki");
 });
 
 const init = async () => {
