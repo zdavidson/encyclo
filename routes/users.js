@@ -19,17 +19,18 @@ router.get("/:id", async (req, res, next) => {
   try {
     const user = await User.findOne({
       where: { id: req.params.id },
+      include: [{ model: Page }],
     });
 
     if (user === null) {
       return res.send(notFoundPage());
     }
 
-    const pages = await Page.findAll({
-      where: { authorId: req.params.id },
-    });
+    // const pages = await Page.findAll({
+    //   where: { authorId: req.params.id },
+    // });
 
-    res.send(userPages(user, pages));
+    res.send(userPages(user, user.pages));
   } catch (err) {
     next(err);
   }
