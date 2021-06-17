@@ -17,8 +17,12 @@ app.use("/wiki", wikiRouter);
 db.authenticate().then(() => console.log("Connected to the database"));
 
 // Main Route
-app.get("/", (req, res) => {
-  res.redirect("/wiki");
+app.get("/", async (req, res, err) => {
+  try {
+    res.redirect("/wiki");
+  } catch (err) {
+    next(err);
+  }
 });
 
 const init = async () => {
