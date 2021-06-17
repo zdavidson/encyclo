@@ -4,8 +4,13 @@ const { addPage, main, wikiPage } = require("../views");
 const { Page } = require("../models");
 
 // GET /wiki/
-router.get("/", (req, res) => {
-  res.send(main());
+router.get("/", async (req, res, next) => {
+  try {
+    const pages = await Page.findAll();
+    res.send(main(pages));
+  } catch (err) {
+    next(err);
+  }
 });
 
 // POST /wiki/
