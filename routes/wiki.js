@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { addPage, main, wikiPage } = require("../views");
-const { Page } = require("../models");
+const { Page, User } = require("../models");
 
 // GET /wiki/
 router.get("/", async (req, res, next) => {
@@ -19,6 +19,13 @@ router.post("/", async (req, res, next) => {
     // author, title, content, status
     // Model.create combines build & save
     const page = await Page.create(req.body);
+
+    const [user, wasCreated] = await User.findOrCreate({
+      where: { name: req.body.author, email: req.body.email },
+    });
+
+    await page.setAuthor(user);
+
     res.redirect(`/wiki/${page.slug}`);
   } catch (err) {
     next(err);
