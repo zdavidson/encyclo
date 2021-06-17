@@ -45,7 +45,7 @@ router.get("/:slug", async (req, res, next) => {
     });
 
     if (page === null) {
-      res.json("That page was not found!");
+      return res.json("That page was not found!");
     }
 
     const author = await page.getAuthor();

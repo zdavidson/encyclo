@@ -27,6 +27,11 @@ app.get("/", async (req, res, err) => {
   }
 });
 
+// Error Handling
+app.use((req, res, next) => {
+  res.status(404).send(views.notFoundPage());
+});
+
 const init = async () => {
   await db.sync();
   await Page.sync();
