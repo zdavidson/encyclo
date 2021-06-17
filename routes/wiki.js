@@ -31,7 +31,7 @@ router.get("/:slug", async (req, res, next) => {
     const page = await Page.findOne({
       where: { slug: req.params.slug },
     });
-    res.json(page);
+    res.send(wikiPage(page));
   } catch (err) {
     next(err);
   }
