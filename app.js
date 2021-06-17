@@ -41,6 +41,7 @@ const init = async () => {
   await db.sync();
   await Page.sync();
   await User.sync();
+  await Tag.sync();
 
   app.listen(8080, () => {
     console.log("Listening on port 8080");
