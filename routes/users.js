@@ -26,10 +26,6 @@ router.get("/:id", async (req, res, next) => {
       return res.send(notFoundPage());
     }
 
-    // const pages = await Page.findAll({
-    //   where: { authorId: req.params.id },
-    // });
-
     res.send(userPages(user, user.pages));
   } catch (err) {
     next(err);
