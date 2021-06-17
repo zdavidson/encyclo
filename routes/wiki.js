@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addPage, main, wikiPage } = require("../views");
+const { addPage, main, notFoundPage, wikiPage } = require("../views");
 const { Page, User } = require("../models");
 
 // GET /wiki/
@@ -45,7 +45,7 @@ router.get("/:slug", async (req, res, next) => {
     });
 
     if (page === null) {
-      return res.json("That page was not found!");
+      return res.send(notFoundPage());
     }
 
     const author = await page.getAuthor();
