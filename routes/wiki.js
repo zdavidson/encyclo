@@ -43,10 +43,14 @@ router.get("/:slug", async (req, res, next) => {
     const page = await Page.findOne({
       where: { slug: req.params.slug },
     });
+
     if (page === null) {
       res.json("That page was not found!");
     }
-    res.send(wikiPage(page));
+
+    const author = await page.getAuthor();
+
+    res.send(wikiPage(page, author));
   } catch (err) {
     next(err);
   }
