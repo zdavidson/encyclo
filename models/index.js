@@ -54,4 +54,4 @@ const Tag = db.define("tag", {
 Page.belongsToMany(Tag, { through: "page_tags" });
 Tag.belongsToMany(Page, { through: "page_tags" });
 
-module.exports = { db, Page, User };
+module.exports = { db, Page, Tag, User };
