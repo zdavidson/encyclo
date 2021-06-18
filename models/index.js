@@ -27,6 +27,19 @@ Page.beforeValidate((page) => {
   page.slug = generateSlug(page.title);
 });
 
+// Page.findByTag = (search) => {
+//   Page.findAll({
+//     include: {
+//       model: Tag,
+//       where: {
+//         name: {
+//           [Sequelize.Op.substring]: search,
+//         },
+//       },
+//     },
+//   });
+// };
+
 const User = db.define("user", {
   name: {
     type: Sequelize.STRING,
