@@ -77,14 +77,15 @@ router.get("/:slug/edit", async (req, res, next) => {
   }
 });
 
-// POST /wiki/:slug -- EDIT/UPDATE
-router.post("/:slug/edit", async (req, res, next) => {
+// PUT /wiki/:slug -- EDIT/UPDATE
+router.put("/:slug", async (req, res, next) => {
   try {
-    const page = await Page.save({
+    const page = await Page.update({
       where: { slug: req.params.slug },
       include: [{ model: User, as: "author" }],
     });
-    res.send(editPage(page, page.author));
+
+    res.redirect(`/wiki/${page.slug}`);
   } catch (err) {
     next(err);
   }
@@ -100,9 +101,9 @@ router.get("/:slug", async (req, res, next) => {
       include: [{ model: Tag }, { model: User, as: "author" }],
     });
 
-    if (page === null) {
-      return res.send(notFoundPage());
-    }
+    // if (page === null) {
+    //   return res.send(notFoundPage());
+    // }
 
     res.send(wikiPage(page, page.author));
   } catch (err) {

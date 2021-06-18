@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const { db, Page, Tag, User } = require("./models");
 const wikiRouter = require("./routes/wiki");
 const userRouter = require("./routes/users");
+const methodOverride = require("method-override");
 
 // Layouts
 const views = require("./views");
@@ -14,6 +15,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use("/wiki", wikiRouter);
 app.use("/users", userRouter);
+app.use(methodOverride("_method"));
 
 // Database
 db.authenticate().then(() => console.log("Connected to the database"));
