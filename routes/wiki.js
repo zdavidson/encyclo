@@ -52,16 +52,12 @@ router.get("/add", (req, res) => {
   res.send(addPage());
 });
 
-// // GET /wiki/search/
-// router.get("/search", async (req, res, next) => {
-//   try {
-//     const pages = await Page.findByTag(req.query.search);
+// GET /wiki/search/
+router.get("/search", async (req, res, next) => {
+  const pages = await Page.findByTag(req.query.search);
 
-//     res.send(main(pages));
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+  res.send(main(pages));
+});
 
 // GET /wiki/:slug
 router.get("/:slug", async (req, res, next) => {
