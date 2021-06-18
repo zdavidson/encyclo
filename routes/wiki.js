@@ -54,10 +54,25 @@ router.get("/add", (req, res) => {
 
 // GET /wiki/search/
 router.get("/search", async (req, res, next) => {
-  const pages = await Page.findByTag(req.query.search);
+  try {
+    const pages = await Page.findByTag(req.query.search);
 
-  res.send(main(pages));
+    res.send(main(pages));
+  } catch (err) {
+    next(err);
+  }
 });
+
+// POST /wiki/:slug -- EDIT/UPDATE
+
+router.post("/:slug", async (req, res, next) => {
+  try {
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /wiki/:slug -- DELETE
 
 // GET /wiki/:slug
 router.get("/:slug", async (req, res, next) => {
