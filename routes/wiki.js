@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { addPage, main, notFoundPage, wikiPage } = require("../views");
-const { Page, User } = require("../models");
+const { Page, User, Tag } = require("../models");
 
 // GET /wiki/
 router.get("/", async (req, res, next) => {
@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
 // POST /wiki/
 router.post("/", async (req, res, next) => {
   try {
-    // author, title, content, status
+    // author, title, content, tags, status
     // Model.create combines build & save
     const page = await Page.create(req.body);
 
@@ -25,6 +25,21 @@ router.post("/", async (req, res, next) => {
     });
 
     await page.setAuthor(user);
+
+    // Adding Tags
+    const tagList = req.body.tags.split(" ");
+    const tags = await Promise.all(
+      tagList.map(async (tagName) => {
+        const [tag, wasCreated] = await Tag.findOrCreate({
+          where: {
+            name: tagName,
+          },
+        });
+        return tag;
+      })
+    );
+
+    await page.addTags(tags);
 
     res.redirect(`/wiki/${page.slug}`);
   } catch (err) {
