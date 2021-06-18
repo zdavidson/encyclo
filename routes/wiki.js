@@ -91,7 +91,14 @@ router.put("/:slug", async (req, res, next) => {
   }
 });
 
-// GET /wiki/:slug -- DELETE
+// DELETE /wiki/:slug
+
+router.delete("/:slug", async (req, res, next) => {
+  try {
+  } catch (err) {
+    next(err);
+  }
+});
 
 // GET /wiki/:slug
 router.get("/:slug", async (req, res, next) => {
