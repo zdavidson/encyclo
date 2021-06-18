@@ -5,10 +5,10 @@ module.exports = (pages) =>
   layout(html`
     <h3>Pages</h3>
     <hr />
-    <form method="GET" action="/wiki/search">
+    <!-- <form method="GET" action="/wiki/search">
       <input type="text" name="search" />
       <button type="submit">Search</button>
-    </form>
+    </form> -->
     <hr />
     <ul class="list-unstyled">
       <li></li>
