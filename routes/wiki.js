@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { addPage, main, notFoundPage, wikiPage } = require("../views");
+const { addPage, editPage, main, notFoundPage, wikiPage } = require("../views");
 const { Page, User, Tag } = require("../models");
 
 // GET /wiki/
@@ -63,10 +63,28 @@ router.get("/search", async (req, res, next) => {
   }
 });
 
-// POST /wiki/:slug -- EDIT/UPDATE
-
-router.post("/:slug", async (req, res, next) => {
+// GET /wiki/:slug/edit -- EDIT PAGE
+router.get("/:slug/edit", async (req, res, next) => {
   try {
+    const page = await Page.findOne({
+      where: { slug: req.params.slug },
+      include: [{ model: Tag }, { model: User, as: "author" }],
+    });
+
+    res.send(editPage(page, page.author));
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST /wiki/:slug -- EDIT/UPDATE
+router.post("/:slug/edit", async (req, res, next) => {
+  try {
+    const page = await Page.save({
+      where: { slug: req.params.slug },
+      include: [{ model: User, as: "author" }],
+    });
+    res.send(editPage(page, page.author));
   } catch (err) {
     next(err);
   }
