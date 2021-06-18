@@ -57,7 +57,7 @@ router.get("/:slug", async (req, res, next) => {
   try {
     const page = await Page.findOne({
       where: { slug: req.params.slug },
-      include: [{ model: User, as: "author" }],
+      include: [{ model: Tag }, { model: User, as: "author" }],
     });
 
     if (page === null) {
