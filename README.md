@@ -1,4 +1,4 @@
-# Wikistack
+# Encyclo
 
 ## Description
 
